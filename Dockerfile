@@ -1,14 +1,10 @@
-FROM python:3.8.5-buster
+FROM registry.access.redhat.com/ubi8/python-38
 
-RUN mkdir /app
-
-COPY ./requirements.txt /app/requirements.txt
-
-WORKDIR /app
+COPY ./requirements.txt ./
 
 RUN pip3 install -r requirements.txt
 
-COPY ./ /app
+COPY ./ ./
 
 EXPOSE 5000
 
