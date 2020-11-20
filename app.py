@@ -17,7 +17,10 @@ def index(httpbin_path1, httpbin_path2):
   headers = {"content-type": "application/json"}
   response = requests.get(httpbin_url, timeout=timeout, headers=headers, params=request.args)
 
-  return render_template("index.html", server=httpbin_url, req_headers=headers, headers=response.headers, text=response.text, status=response.status_code)
+  if request.headers.get("Content-Type") == 'application/json':
+    return response.json, response.status_code
+  else:
+    return render_template("index.html", server=httpbin_url, req_headers=headers, headers=response.headers, text=response.text, status=response.status_code)
 
 @app.route('/health')
 def health():
